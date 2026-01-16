@@ -105,7 +105,7 @@ export default function CreateRecipePage() {
                   required
                   value={formData.title}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
                   placeholder="e.g., Grandma's Famous Apple Pie"
                 />
               </div>
@@ -121,7 +121,7 @@ export default function CreateRecipePage() {
                   value={formData.description}
                   onChange={handleInputChange}
                   rows={3}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
                   placeholder="A brief description of your recipe..."
                 />
               </div>
@@ -137,7 +137,7 @@ export default function CreateRecipePage() {
                     required
                     value={formData.category}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
                   >
                     <option value="Breakfast">Breakfast</option>
                     <option value="Main Course">Main Course</option>
@@ -160,7 +160,7 @@ export default function CreateRecipePage() {
                     required
                     value={formData.difficulty}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
                   >
                     <option value="Easy">Easy</option>
                     <option value="Medium">Medium</option>
@@ -181,7 +181,7 @@ export default function CreateRecipePage() {
                     required
                     value={formData.prepTime}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
                     placeholder="e.g., 15 min"
                   />
                 </div>
@@ -197,7 +197,7 @@ export default function CreateRecipePage() {
                     required
                     value={formData.cookTime}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
                     placeholder="e.g., 1 hour"
                   />
                 </div>
@@ -214,7 +214,7 @@ export default function CreateRecipePage() {
                     min="1"
                     value={formData.servings}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
                     placeholder="4"
                   />
                 </div>
@@ -241,7 +241,7 @@ export default function CreateRecipePage() {
                 value={formData.story}
                 onChange={handleInputChange}
                 rows={4}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
                 placeholder="Tell us about the memories, traditions, or special moments associated with this recipe..."
               />
             </div>
@@ -263,7 +263,7 @@ export default function CreateRecipePage() {
                     type="text"
                     value={ingredient}
                     onChange={(e) => handleArrayChange(index, e.target.value, ingredients, setIngredients)}
-                    className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
                     placeholder={`Ingredient ${index + 1}`}
                   />
                   {ingredients.length > 1 && (
@@ -311,7 +311,7 @@ export default function CreateRecipePage() {
                     value={instruction}
                     onChange={(e) => handleArrayChange(index, e.target.value, instructions, setInstructions)}
                     rows={2}
-                    className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
                     placeholder={`Step ${index + 1}`}
                   />
                   {instructions.length > 1 && (
@@ -356,7 +356,7 @@ export default function CreateRecipePage() {
                     type="text"
                     value={tip}
                     onChange={(e) => handleArrayChange(index, e.target.value, tips, setTips)}
-                    className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-gray-900"
                     placeholder={`Tip ${index + 1}`}
                   />
                   {tips.length > 1 && (
