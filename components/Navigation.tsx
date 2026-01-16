@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
@@ -23,11 +24,19 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-xl px-3 py-1 rounded-lg">
-              FR
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="transition-transform duration-200 group-hover:scale-110">
+              <Image
+                src="/logo.svg"
+                alt="Family Recipes Logo"
+                width={48}
+                height={48}
+                priority
+              />
             </div>
-            <span className="font-bold text-xl text-gray-900">Family Recipes</span>
+            <span className="font-bold text-2xl text-gray-900 group-hover:text-orange-600 transition-colors duration-200">
+              Family Recipes
+            </span>
           </Link>
 
           {/* Navigation Links */}

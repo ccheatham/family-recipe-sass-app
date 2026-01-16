@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function AuthPage() {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -29,10 +30,14 @@ export default function AuthPage() {
       <div className="max-w-md mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center space-x-2 mb-6">
-            <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-2xl px-4 py-2 rounded-lg">
-              FR
-            </div>
+          <Link href="/" className="inline-flex items-center justify-center mb-6 transition-transform duration-200 hover:scale-110">
+            <Image
+              src="/logo.svg"
+              alt="Family Recipes Logo"
+              width={64}
+              height={64}
+              priority
+            />
           </Link>
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
             {isSignIn ? 'Welcome Back!' : 'Create Your Account'}
