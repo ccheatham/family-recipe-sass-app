@@ -5,7 +5,7 @@ export default function GuidesPage() {
       icon: '🚀',
       items: [
         {
-          title: 'Complete Beginner's Guide to Family Recipes',
+          title: 'Complete Beginner\'s Guide to Family Recipes',
           description: 'Everything you need to know to get started with preserving your family recipes.',
           duration: '15 min read',
           level: 'Beginner',
