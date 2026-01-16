@@ -115,7 +115,7 @@ export default function RecipesPage() {
                 placeholder="Search recipes..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-6 py-4 pl-12 border border-gray-300 rounded-full focus:ring-2 focus:ring-orange-500 focus:border-transparent shadow-sm"
+                className="w-full px-6 py-4 pl-12 border border-gray-300 rounded-full focus:ring-2 focus:ring-orange-500 focus:border-transparent shadow-sm text-gray-900"
               />
               <svg
                 className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
