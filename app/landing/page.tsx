@@ -324,10 +324,13 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-xl px-3 py-1 rounded-lg">
-                  FR
-                </div>
+              <div className="flex items-center space-x-3 mb-4">
+                <Image
+                  src="/logo.svg"
+                  alt="Family Recipes Logo"
+                  width={40}
+                  height={40}
+                />
                 <span className="font-bold text-xl">Family Recipes</span>
               </div>
               <p className="text-gray-400 text-sm">

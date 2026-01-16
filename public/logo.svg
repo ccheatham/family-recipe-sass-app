@@ -1,0 +1,31 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle with gradient -->
+  <defs>
+    <linearGradient id="brandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f97316;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Circular background -->
+  <circle cx="24" cy="24" r="23" fill="url(#brandGradient)"/>
+
+  <!-- Recipe book/cookbook icon -->
+  <g transform="translate(12, 10)">
+    <!-- Book pages -->
+    <rect x="2" y="2" width="20" height="26" rx="2" fill="white" opacity="0.95"/>
+
+    <!-- Book spine shadow -->
+    <rect x="2" y="2" width="2" height="26" fill="#000000" opacity="0.1"/>
+
+    <!-- Recipe lines -->
+    <line x1="6" y1="8" x2="18" y2="8" stroke="#f97316" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="6" y1="12" x2="18" y2="12" stroke="#f97316" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+    <line x1="6" y1="16" x2="15" y2="16" stroke="#f97316" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- Chef's hat accent on top -->
+    <path d="M 8 5 Q 8 3 10 3 Q 11 1 12 1 Q 13 1 14 3 Q 16 3 16 5 L 15 7 L 9 7 Z"
+          fill="white" opacity="0.9"/>
+    <ellipse cx="12" cy="7" rx="3.5" ry="1" fill="white" opacity="0.9"/>
+  </g>
+</svg>
