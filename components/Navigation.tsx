@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import DarkModeToggle from './DarkModeToggle';
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -30,7 +31,7 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="bg-white shadow-md border-b border-gray-200" aria-label="Main navigation">
+    <nav className="bg-[var(--bg-primary)] shadow-md border-b border-[var(--border-secondary)]" aria-label="Main navigation">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -44,13 +45,13 @@ export default function Navigation() {
                 priority
               />
             </div>
-            <span className="font-bold text-2xl text-gray-900 group-hover:text-orange-600 transition-colors duration-200">
+            <span className="font-bold text-2xl text-[var(--text-primary)] group-hover:text-orange-600 transition-colors duration-200">
               Family Recipes
             </span>
           </Link>
 
-          {/* Navigation Links */}
-          <div className="hidden md:flex space-x-1">
+          {/* Navigation Links and Dark Mode Toggle */}
+          <div className="hidden md:flex items-center space-x-1">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -59,19 +60,23 @@ export default function Navigation() {
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive(item.href)
                     ? 'bg-orange-500 text-white'
-                    : 'text-gray-700 hover:bg-orange-100 hover:text-orange-600'
+                    : 'text-[var(--text-secondary)] hover:bg-[var(--bg-accent-orange)] hover:text-orange-600'
                 }`}
               >
                 {item.label}
               </Link>
             ))}
+            <div className="ml-2 pl-2 border-l border-[var(--border-secondary)]">
+              <DarkModeToggle />
+            </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          {/* Mobile Menu Button and Dark Mode Toggle */}
+          <div className="md:hidden flex items-center space-x-2">
+            <DarkModeToggle />
             <button
               onClick={toggleMobileMenu}
-              className="text-gray-700 hover:text-orange-500 focus:outline-none"
+              className="text-[var(--text-secondary)] hover:text-orange-500 focus:outline-none"
               aria-label="Toggle menu"
               aria-expanded={isMobileMenuOpen}
             >
@@ -106,7 +111,7 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden pb-4 pt-2 border-t border-gray-200 animate-in slide-in-from-top duration-200">
+          <div className="md:hidden pb-4 pt-2 border-t border-[var(--border-secondary)] animate-in slide-in-from-top duration-200">
             <div className="flex flex-col space-y-2">
               {navItems.map((item) => (
                 <Link
@@ -117,7 +122,7 @@ export default function Navigation() {
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                     isActive(item.href)
                       ? 'bg-orange-500 text-white'
-                      : 'text-gray-700 hover:bg-orange-100 hover:text-orange-600'
+                      : 'text-[var(--text-secondary)] hover:bg-[var(--bg-accent-orange)] hover:text-orange-600'
                   }`}
                 >
                   {item.label}

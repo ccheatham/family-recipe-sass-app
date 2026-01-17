@@ -93,14 +93,14 @@ export default function RecipesPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 py-12">
+    <div className="min-h-screen py-12" style={{ background: 'var(--gradient-bg)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-4">
             Family Recipe Collection
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
             Discover delicious recipes shared by families around the world. Each dish tells a story.
           </p>
         </div>
@@ -115,11 +115,11 @@ export default function RecipesPage() {
                 placeholder="Search recipes..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-6 py-4 pl-12 border border-gray-300 rounded-full focus:ring-2 focus:ring-orange-500 focus:border-transparent shadow-sm text-gray-900"
+                className="w-full px-6 py-4 pl-12 border border-[var(--border-primary)] rounded-full focus:ring-2 focus:ring-orange-500 focus:border-transparent shadow-sm text-[var(--text-primary)] bg-[var(--bg-primary)]"
                 aria-label="Search recipes"
               />
               <svg
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[var(--text-muted)]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -139,7 +139,7 @@ export default function RecipesPage() {
                 className={`px-6 py-2 rounded-full font-medium transition-all duration-200 ${
                   selectedCategory === category
                     ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-md'
-                    : 'bg-white text-gray-700 border border-gray-300 hover:border-orange-500 hover:text-orange-500'
+                    : 'bg-[var(--bg-primary)] text-[var(--text-secondary)] border border-[var(--border-primary)] hover:border-orange-500 hover:text-orange-500'
                 }`}
                 aria-pressed={selectedCategory === category}
               >
@@ -162,10 +162,10 @@ export default function RecipesPage() {
             <Link
               key={recipe.id}
               href={`/recipes/${recipe.id}`}
-              className="group bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08),0_8px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_rgba(249,115,22,0.15),0_12px_32px_rgba(239,68,68,0.1)] transition-all duration-300 overflow-hidden hover:scale-[1.01] hover:-translate-y-1"
+              className="group bg-[var(--bg-primary)] rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08),0_8px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_rgba(249,115,22,0.15),0_12px_32px_rgba(239,68,68,0.1)] transition-all duration-300 overflow-hidden hover:scale-[1.01] hover:-translate-y-1"
             >
               {/* Recipe Image Placeholder */}
-              <div className="h-52 bg-gradient-to-br from-orange-100 via-orange-200 to-red-200 relative overflow-hidden">
+              <div className="h-52 relative overflow-hidden" style={{ background: 'var(--gradient-image)' }}>
                 {/* Decorative pattern overlay */}
                 <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}></div>
 
@@ -176,22 +176,22 @@ export default function RecipesPage() {
                 </div>
 
                 {/* Category Badge */}
-                <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-gray-700 shadow-sm">
+                <div className="absolute top-4 right-4 bg-[var(--bg-primary)]/95 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-[var(--text-secondary)] shadow-sm">
                   {recipe.category}
                 </div>
               </div>
 
               {/* Recipe Info */}
-              <div className="p-6 bg-gradient-to-b from-white to-orange-50/30">
-                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">
+              <div className="p-6 bg-[var(--bg-primary)]">
+                <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-orange-600 transition-colors duration-300">
                   {recipe.title}
                 </h3>
-                <p className="text-gray-600 text-sm mb-5 line-clamp-2 leading-relaxed">
+                <p className="text-[var(--text-secondary)] text-sm mb-5 line-clamp-2 leading-relaxed">
                   {recipe.description}
                 </p>
 
                 {/* Meta Info */}
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-5">
+                <div className="flex items-center justify-between text-sm text-[var(--text-tertiary)] mb-5">
                   <div className="flex items-center space-x-5">
                     <span className="flex items-center font-medium">
                       <svg className="w-4 h-4 mr-1.5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -209,9 +209,9 @@ export default function RecipesPage() {
                 </div>
 
                 {/* Author and Likes */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                  <span className="text-sm text-gray-600 font-medium">by {recipe.author}</span>
-                  <span className="flex items-center text-sm text-gray-600 font-medium">
+                <div className="flex items-center justify-between pt-4 border-t border-[var(--border-tertiary)]">
+                  <span className="text-sm text-[var(--text-secondary)] font-medium">by {recipe.author}</span>
+                  <span className="flex items-center text-sm text-[var(--text-secondary)] font-medium">
                     <svg className="w-4 h-4 mr-1.5 text-red-400 fill-current group-hover:text-red-500 transition-colors duration-300" viewBox="0 0 24 24">
                       <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                     </svg>
@@ -226,19 +226,19 @@ export default function RecipesPage() {
         {/* Empty State */}
         {filteredRecipes.length === 0 && (
           <div className="text-center py-12">
-            <svg className="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-16 h-16 mx-auto text-[var(--text-muted)] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No recipes found</h3>
-            <p className="text-gray-600">Try adjusting your search or filter criteria</p>
+            <h3 className="text-xl font-semibold text-[var(--text-primary)] mb-2">No recipes found</h3>
+            <p className="text-[var(--text-secondary)]">Try adjusting your search or filter criteria</p>
           </div>
         )}
 
         {/* CTA to Share Recipe */}
         <div className="mt-16 text-center">
-          <div className="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-900 mb-3">Have a family recipe to share?</h3>
-            <p className="text-gray-600 mb-6">
+          <div className="bg-[var(--bg-primary)] rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-3">Have a family recipe to share?</h3>
+            <p className="text-[var(--text-secondary)] mb-6">
               Add your family's special recipes and keep your culinary traditions alive for future generations.
             </p>
             <Link
