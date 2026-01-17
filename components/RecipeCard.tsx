@@ -24,10 +24,10 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
   return (
     <Link
       href={`/recipes/${recipe.id}`}
-      className="group bg-white rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08),0_8px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_rgba(249,115,22,0.15),0_12px_32px_rgba(239,68,68,0.1)] transition-all duration-300 overflow-hidden hover:scale-[1.01] hover:-translate-y-1"
+      className="group bg-[var(--bg-primary)] rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.08),0_8px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_rgba(249,115,22,0.15),0_12px_32px_rgba(239,68,68,0.1)] transition-all duration-300 overflow-hidden hover:scale-[1.01] hover:-translate-y-1"
     >
       {/* Recipe Image Placeholder */}
-      <div className="h-52 bg-gradient-to-br from-orange-100 via-orange-200 to-red-200 relative overflow-hidden">
+      <div className="h-52 relative overflow-hidden" style={{ background: 'var(--gradient-image)' }}>
         {/* Decorative pattern overlay */}
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}></div>
 
@@ -38,22 +38,22 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
         </div>
 
         {/* Category Badge */}
-        <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-gray-700 shadow-sm">
+        <div className="absolute top-4 right-4 bg-[var(--bg-primary)]/95 backdrop-blur-sm px-4 py-1.5 rounded-full text-xs font-semibold text-[var(--text-secondary)] shadow-sm">
           {recipe.category}
         </div>
       </div>
 
       {/* Recipe Info */}
-      <div className="p-6 bg-gradient-to-b from-white to-orange-50/30">
-        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">
+      <div className="p-6 bg-[var(--bg-primary)]">
+        <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-orange-600 transition-colors duration-300">
           {recipe.title}
         </h3>
-        <p className="text-gray-600 text-sm mb-5 line-clamp-2 leading-relaxed">
+        <p className="text-[var(--text-secondary)] text-sm mb-5 line-clamp-2 leading-relaxed">
           {recipe.description}
         </p>
 
         {/* Meta Info */}
-        <div className="flex items-center justify-between text-sm text-gray-500 mb-5">
+        <div className="flex items-center justify-between text-sm text-[var(--text-tertiary)] mb-5">
           <div className="flex items-center space-x-5">
             <span className="flex items-center font-medium">
               <svg className="w-4 h-4 mr-1.5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
@@ -71,9 +71,9 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
         </div>
 
         {/* Author and Likes */}
-        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-          <span className="text-sm text-gray-600 font-medium">by {recipe.author}</span>
-          <span className="flex items-center text-sm text-gray-600 font-medium">
+        <div className="flex items-center justify-between pt-4 border-t border-[var(--border-tertiary)]">
+          <span className="text-sm text-[var(--text-secondary)] font-medium">by {recipe.author}</span>
+          <span className="flex items-center text-sm text-[var(--text-secondary)] font-medium">
             <svg className="w-4 h-4 mr-1.5 text-red-400 fill-current group-hover:text-red-500 transition-colors duration-300" viewBox="0 0 24 24">
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </svg>

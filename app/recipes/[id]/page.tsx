@@ -4,9 +4,88 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 
+// Recipe type definition
+interface Recipe {
+  id: string;
+  title: string;
+  author: string;
+  authorAvatar: string;
+  description: string;
+  story: string;
+  cookTime: string;
+  prepTime: string;
+  servings: number;
+  category: string;
+  difficulty: string;
+  isPublic: boolean;
+  likes: number;
+  ingredients: string[];
+  instructions: string[];
+  tips: string[];
+}
+
+// Helper function to scale ingredient quantities
+const scaleIngredient = (ingredient: string, multiplier: number): string => {
+  if (multiplier === 1) return ingredient;
+
+  // Match patterns like "2 1/4", "1/2", "2.5", "2" at the start of the string
+  const regex = /^((\d+)\s+)?(\d+)\/(\d+)|^(\d+\.?\d*)/;
+  const match = ingredient.match(regex);
+
+  if (!match) return ingredient;
+
+  let value: number;
+  let matchedPart: string;
+
+  if (match[3] && match[4]) {
+    // Mixed number or fraction like "2 1/4" or "1/2"
+    const whole = match[2] ? parseInt(match[2]) : 0;
+    const numerator = parseInt(match[3]);
+    const denominator = parseInt(match[4]);
+    value = whole + numerator / denominator;
+    matchedPart = match[0];
+  } else if (match[5]) {
+    // Decimal or whole number like "2.5" or "2"
+    value = parseFloat(match[5]);
+    matchedPart = match[5];
+  } else {
+    return ingredient;
+  }
+
+  const scaled = value * multiplier;
+
+  // Format the scaled value nicely
+  const formatNumber = (num: number): string => {
+    // Check for common fractions
+    const fractions: [number, string][] = [
+      [0.25, '1/4'], [0.5, '1/2'], [0.75, '3/4'],
+      [0.33, '1/3'], [0.67, '2/3'],
+      [0.125, '1/8'], [0.375, '3/8'], [0.625, '5/8'], [0.875, '7/8'],
+    ];
+
+    const whole = Math.floor(num);
+    const decimal = num - whole;
+
+    if (decimal < 0.05) {
+      return whole.toString();
+    }
+
+    for (const [dec, frac] of fractions) {
+      if (Math.abs(decimal - dec) < 0.05) {
+        return whole > 0 ? `${whole} ${frac}` : frac;
+      }
+    }
+
+    // Fall back to decimal with reasonable precision
+    return num % 1 === 0 ? num.toString() : num.toFixed(1).replace(/\.0$/, '');
+  };
+
+  return ingredient.replace(matchedPart, formatNumber(scaled));
+};
+
 // Mock recipe data (in a real app, this would come from a database)
-const getRecipeById = (id: string) => {
-  const recipes: Record<string, any> = {
+const getRecipeById = (id: string): Recipe | null => {
+  const recipes: Record<string, Recipe> = {
     '1': {
       id: '1',
       title: "Grandma's Classic Chocolate Chip Cookies",
@@ -64,16 +143,17 @@ export default function RecipeDetailPage() {
 
   if (!recipe) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 py-12">
+      <div className="min-h-screen py-12" style={{ background: 'var(--gradient-bg)' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <svg className="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <svg className="w-16 h-16 mx-auto mb-4" style={{ color: 'var(--text-muted)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Recipe Not Found</h1>
-          <p className="text-gray-600 mb-8">Sorry, we couldn't find the recipe you're looking for.</p>
+          <h1 className="text-3xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Recipe Not Found</h1>
+          <p className="mb-8" style={{ color: 'var(--text-secondary)' }}>Sorry, we couldn&apos;t find the recipe you&apos;re looking for.</p>
           <Link
             href="/recipes"
-            className="inline-block bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-200"
+            className="inline-block text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-200"
+            style={{ background: 'var(--gradient-primary)' }}
           >
             Browse All Recipes
           </Link>
@@ -83,12 +163,13 @@ export default function RecipeDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 py-12">
+    <div className="min-h-screen py-12" style={{ background: 'var(--gradient-bg)' }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Button */}
         <Link
           href="/recipes"
-          className="inline-flex items-center text-gray-600 hover:text-orange-500 mb-6 transition-colors"
+          className="inline-flex items-center mb-6 transition-colors hover:opacity-80"
+          style={{ color: 'var(--text-secondary)' }}
         >
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -97,47 +178,48 @@ export default function RecipeDetailPage() {
         </Link>
 
         {/* Recipe Header */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+        <div className="rounded-xl shadow-lg overflow-hidden mb-8" style={{ backgroundColor: 'var(--bg-primary)' }}>
           {/* Hero Image */}
-          <div className="h-64 md:h-96 bg-gradient-to-br from-orange-200 to-red-200 relative">
+          <div className="h-64 md:h-96 relative" style={{ background: 'var(--gradient-image)' }}>
             <div className="absolute inset-0 flex items-center justify-center">
               <svg className="w-32 h-32 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
             </div>
             {/* Category Badge */}
-            <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold text-gray-700">
+            <div className="absolute top-4 right-4 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold" style={{ backgroundColor: 'var(--bg-primary)', opacity: 0.95, color: 'var(--text-secondary)' }}>
               {recipe.category}
             </div>
           </div>
 
           {/* Recipe Info */}
           <div className="p-8">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
               {recipe.title}
             </h1>
-            <p className="text-xl text-gray-600 mb-6">{recipe.description}</p>
+            <p className="text-xl mb-6" style={{ color: 'var(--text-secondary)' }}>{recipe.description}</p>
 
             {/* Author and Actions */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-gray-200">
+            <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b" style={{ borderColor: 'var(--border-secondary)' }}>
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center text-white font-bold">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold" style={{ background: 'var(--gradient-primary)' }}>
                   {recipe.authorAvatar}
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Recipe by</p>
-                  <p className="font-semibold text-gray-900">{recipe.author}</p>
+                  <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Recipe by</p>
+                  <p className="font-semibold" style={{ color: 'var(--text-primary)' }}>{recipe.author}</p>
                 </div>
               </div>
 
               <div className="flex items-center space-x-3">
                 <button
                   onClick={() => setIsLiked(!isLiked)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-full border-2 transition-all duration-200 ${
-                    isLiked
-                      ? 'bg-red-50 border-red-500 text-red-500'
-                      : 'border-gray-300 text-gray-600 hover:border-red-500 hover:text-red-500'
-                  }`}
+                  className="flex items-center space-x-2 px-4 py-2 rounded-full border-2 transition-all duration-200"
+                  style={{
+                    backgroundColor: isLiked ? 'var(--bg-accent-red)' : 'transparent',
+                    borderColor: isLiked ? 'var(--secondary)' : 'var(--border-primary)',
+                    color: isLiked ? 'var(--secondary)' : 'var(--text-secondary)'
+                  }}
                   aria-label="Like this recipe"
                 >
                   <svg className={`w-5 h-5 ${isLiked ? 'fill-current' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -146,13 +228,13 @@ export default function RecipeDetailPage() {
                   <span className="font-semibold">{recipe.likes + (isLiked ? 1 : 0)}</span>
                 </button>
 
-                <button className="p-2 rounded-full border-2 border-gray-300 text-gray-600 hover:border-orange-500 hover:text-orange-500 transition-colors" aria-label="Share this recipe">
+                <button className="p-2 rounded-full border-2 transition-colors" style={{ borderColor: 'var(--border-primary)', color: 'var(--text-secondary)' }} aria-label="Share this recipe">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                   </svg>
                 </button>
 
-                <button className="p-2 rounded-full border-2 border-gray-300 text-gray-600 hover:border-orange-500 hover:text-orange-500 transition-colors" aria-label="Bookmark this recipe">
+                <button className="p-2 rounded-full border-2 transition-colors" style={{ borderColor: 'var(--border-primary)', color: 'var(--text-secondary)' }} aria-label="Bookmark this recipe">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                   </svg>
@@ -163,43 +245,43 @@ export default function RecipeDetailPage() {
             {/* Recipe Meta */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6">
               <div className="text-center">
-                <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2" style={{ backgroundColor: 'var(--icon-bg-orange)' }}>
+                  <svg className="w-6 h-6" style={{ color: 'var(--icon-orange)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <p className="text-sm text-gray-500">Prep Time</p>
-                <p className="font-semibold text-gray-900">{recipe.prepTime}</p>
+                <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Prep Time</p>
+                <p className="font-semibold" style={{ color: 'var(--text-primary)' }}>{recipe.prepTime}</p>
               </div>
 
               <div className="text-center">
-                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2" style={{ backgroundColor: 'var(--icon-bg-red)' }}>
+                  <svg className="w-6 h-6" style={{ color: 'var(--icon-red)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
                   </svg>
                 </div>
-                <p className="text-sm text-gray-500">Cook Time</p>
-                <p className="font-semibold text-gray-900">{recipe.cookTime}</p>
+                <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Cook Time</p>
+                <p className="font-semibold" style={{ color: 'var(--text-primary)' }}>{recipe.cookTime}</p>
               </div>
 
               <div className="text-center">
-                <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2" style={{ backgroundColor: 'var(--icon-bg-yellow)' }}>
+                  <svg className="w-6 h-6" style={{ color: 'var(--icon-yellow)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 </div>
-                <p className="text-sm text-gray-500">Servings</p>
-                <p className="font-semibold text-gray-900">{recipe.servings * servingMultiplier}</p>
+                <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Servings</p>
+                <p className="font-semibold" style={{ color: 'var(--text-primary)' }}>{recipe.servings * servingMultiplier}</p>
               </div>
 
               <div className="text-center">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-2" style={{ backgroundColor: 'var(--icon-bg-green)' }}>
+                  <svg className="w-6 h-6" style={{ color: 'var(--icon-green)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <p className="text-sm text-gray-500">Difficulty</p>
-                <p className="font-semibold text-gray-900">{recipe.difficulty}</p>
+                <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Difficulty</p>
+                <p className="font-semibold" style={{ color: 'var(--text-primary)' }}>{recipe.difficulty}</p>
               </div>
             </div>
           </div>
@@ -207,38 +289,40 @@ export default function RecipeDetailPage() {
 
         {/* Recipe Story */}
         {recipe.story && (
-          <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-              <svg className="w-6 h-6 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <div className="rounded-xl shadow-lg p-8 mb-8" style={{ backgroundColor: 'var(--bg-primary)' }}>
+            <h2 className="text-2xl font-bold mb-4 flex items-center" style={{ color: 'var(--text-primary)' }}>
+              <svg className="w-6 h-6 mr-2" style={{ color: 'var(--icon-orange)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
               The Story Behind the Recipe
             </h2>
-            <p className="text-gray-700 leading-relaxed italic">{recipe.story}</p>
+            <p className="leading-relaxed italic" style={{ color: 'var(--text-secondary)' }}>{recipe.story}</p>
           </div>
         )}
 
         {/* Ingredients and Instructions */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
           {/* Ingredients */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-6">
+          <div className="lg:col-span-1 self-start">
+            <div className="rounded-xl shadow-lg p-6 sticky top-6" style={{ backgroundColor: 'var(--bg-primary)' }}>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-gray-900">Ingredients</h2>
-                <div className="flex items-center space-x-2 bg-gray-100 rounded-lg p-1">
+                <h2 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>Ingredients</h2>
+                <div className="flex items-center space-x-2 rounded-lg p-1" style={{ backgroundColor: 'var(--bg-tertiary)' }}>
                   <button
                     onClick={() => setServingMultiplier(Math.max(0.5, servingMultiplier - 0.5))}
-                    className="p-1 hover:bg-white rounded transition-colors"
+                    className="p-1 rounded transition-colors"
+                    style={{ color: 'var(--text-secondary)' }}
                     aria-label="Decrease serving size"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
                     </svg>
                   </button>
-                  <span className="text-sm font-semibold px-2" aria-live="polite" aria-atomic="true">{servingMultiplier}x</span>
+                  <span className="text-sm font-semibold px-2" style={{ color: 'var(--text-primary)' }} aria-live="polite" aria-atomic="true">{servingMultiplier}x</span>
                   <button
                     onClick={() => setServingMultiplier(servingMultiplier + 0.5)}
-                    className="p-1 hover:bg-white rounded transition-colors"
+                    className="p-1 rounded transition-colors"
+                    style={{ color: 'var(--text-secondary)' }}
                     aria-label="Increase serving size"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -250,10 +334,10 @@ export default function RecipeDetailPage() {
               <ul className="space-y-3">
                 {recipe.ingredients.map((ingredient: string, index: number) => (
                   <li key={index} className="flex items-start">
-                    <div className="w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
-                      <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0" style={{ backgroundColor: 'var(--icon-bg-orange)' }}>
+                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--icon-orange)' }}></div>
                     </div>
-                    <span className="text-gray-700">{ingredient}</span>
+                    <span style={{ color: 'var(--text-secondary)' }}>{scaleIngredient(ingredient, servingMultiplier)}</span>
                   </li>
                 ))}
               </ul>
@@ -262,16 +346,16 @@ export default function RecipeDetailPage() {
 
           {/* Instructions */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Instructions</h2>
+            <div className="rounded-xl shadow-lg p-6" style={{ backgroundColor: 'var(--bg-primary)' }}>
+              <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Instructions</h2>
               <ol className="space-y-6">
                 {recipe.instructions.map((instruction: string, index: number) => (
                   <li key={index} className="flex items-start">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white flex items-center justify-center mr-4 flex-shrink-0 font-bold">
+                    <div className="w-8 h-8 rounded-full text-white flex items-center justify-center mr-4 flex-shrink-0 font-bold" style={{ background: 'var(--gradient-primary)' }}>
                       {index + 1}
                     </div>
                     <div className="flex-1 pt-1">
-                      <p className="text-gray-700 leading-relaxed">{instruction}</p>
+                      <p className="leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{instruction}</p>
                     </div>
                   </li>
                 ))}
@@ -279,17 +363,17 @@ export default function RecipeDetailPage() {
 
               {/* Tips */}
               {recipe.tips && recipe.tips.length > 0 && (
-                <div className="mt-8 p-6 bg-yellow-50 rounded-lg border border-yellow-200">
-                  <h3 className="text-lg font-bold text-gray-900 mb-3 flex items-center">
-                    <svg className="w-5 h-5 mr-2 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <div className="mt-8 p-6 rounded-lg border" style={{ backgroundColor: 'var(--bg-accent-yellow)', borderColor: 'var(--border-accent-yellow)' }}>
+                  <h3 className="text-lg font-bold mb-3 flex items-center" style={{ color: 'var(--text-primary)' }}>
+                    <svg className="w-5 h-5 mr-2" style={{ color: 'var(--icon-yellow)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
                     Pro Tips
                   </h3>
                   <ul className="space-y-2">
                     {recipe.tips.map((tip: string, index: number) => (
-                      <li key={index} className="flex items-start text-gray-700">
-                        <span className="text-yellow-600 mr-2">•</span>
+                      <li key={index} className="flex items-start" style={{ color: 'var(--text-secondary)' }}>
+                        <span className="mr-2" style={{ color: 'var(--icon-yellow)' }}>•</span>
                         {tip}
                       </li>
                     ))}
@@ -301,12 +385,13 @@ export default function RecipeDetailPage() {
         </div>
 
         {/* More from this author */}
-        <div className="bg-white rounded-xl shadow-lg p-8 text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-3">Love this recipe?</h3>
-          <p className="text-gray-600 mb-6">Share your own family recipes with the community!</p>
+        <div className="rounded-xl shadow-lg p-8 text-center" style={{ backgroundColor: 'var(--bg-primary)' }}>
+          <h3 className="text-2xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>Love this recipe?</h3>
+          <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>Share your own family recipes with the community!</p>
           <Link
             href="/recipes/create"
-            className="inline-block bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-200 hover:scale-105"
+            className="inline-block text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-200 hover:scale-105"
+            style={{ background: 'var(--gradient-primary)' }}
           >
             Share Your Recipe
           </Link>
