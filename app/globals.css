@@ -82,8 +82,9 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Dark mode - supports both system preference and manual toggle */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light) {
     /* Base colors */
     --background: #0a0a0a;
     --foreground: #ededed;
@@ -136,6 +137,61 @@
     --gradient-bg: linear-gradient(135deg, #2c1810 0%, #0a0a0a 50%, #2c1010 100%);
     --gradient-image: linear-gradient(135deg, #3c2410, #3c1010);
   }
+}
+
+/* Manual dark mode class override */
+:root.dark {
+  /* Base colors */
+  --background: #0a0a0a;
+  --foreground: #ededed;
+
+  /* Primary brand colors remain the same for consistency */
+  --primary: #f97316;
+  --primary-hover: #ea580c;
+  --secondary: #ef4444;
+  --secondary-hover: #dc2626;
+
+  /* Text colors */
+  --text-primary: #ededed;
+  --text-secondary: #d1d5db;
+  --text-tertiary: #9ca3af;
+  --text-muted: #6b7280;
+  --text-placeholder: #6b7280;
+
+  /* Background colors */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #262626;
+  --bg-accent-orange: #2c1810;
+  --bg-accent-red: #2c1010;
+  --bg-accent-yellow: #2c2410;
+  --bg-accent-green: #102c10;
+  --bg-orange-light: #3c2410;
+  --bg-red-light: #3c1010;
+  --bg-yellow-light: #3c3410;
+  --bg-green-light: #103c10;
+
+  /* Border colors */
+  --border-primary: #374151;
+  --border-secondary: #262626;
+  --border-tertiary: #1a1a1a;
+  --border-focus: #f97316;
+  --border-accent-yellow: #3c3410;
+
+  /* Icon background colors */
+  --icon-bg-orange: #2c1810;
+  --icon-bg-red: #2c1010;
+  --icon-bg-yellow: #2c2410;
+  --icon-bg-green: #102c10;
+  --icon-bg-gray: #262626;
+
+  /* Interactive states */
+  --hover-bg: #1a1a1a;
+  --active-bg: #262626;
+
+  /* Gradients */
+  --gradient-bg: linear-gradient(135deg, #2c1810 0%, #0a0a0a 50%, #2c1010 100%);
+  --gradient-image: linear-gradient(135deg, #3c2410, #3c1010);
 }
 
 body {
