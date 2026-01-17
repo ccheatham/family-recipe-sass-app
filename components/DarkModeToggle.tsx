@@ -1,14 +1,31 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useTheme } from './ThemeProvider';
 
 export default function DarkModeToggle() {
-  const { resolvedTheme, setTheme, theme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleTheme = () => {
-    // Simple toggle between light and dark
     setTheme(resolvedTheme === 'light' ? 'dark' : 'light');
   };
+
+  // Render a placeholder during SSR to prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <button
+        className="p-2 rounded-lg text-[var(--text-secondary)]"
+        aria-label="Toggle theme"
+      >
+        <svg className="w-5 h-5" viewBox="0 0 24 24" />
+      </button>
+    );
+  }
 
   return (
     <button
@@ -18,7 +35,6 @@ export default function DarkModeToggle() {
       title={`Switch to ${resolvedTheme === 'light' ? 'dark' : 'light'} mode`}
     >
       {resolvedTheme === 'light' ? (
-        // Moon icon for switching to dark mode
         <svg
           className="w-5 h-5"
           fill="none"
@@ -33,7 +49,6 @@ export default function DarkModeToggle() {
           />
         </svg>
       ) : (
-        // Sun icon for switching to light mode
         <svg
           className="w-5 h-5"
           fill="none"

@@ -10,14 +10,16 @@ interface ThemeContextType {
   resolvedTheme: 'light' | 'dark';
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const defaultContext: ThemeContextType = {
+  theme: 'system',
+  setTheme: () => {},
+  resolvedTheme: 'light',
+};
+
+const ThemeContext = createContext<ThemeContextType>(defaultContext);
 
 export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
+  return useContext(ThemeContext);
 }
 
 interface ThemeProviderProps {
@@ -30,14 +32,14 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const [mounted, setMounted] = useState(false);
 
   // Get the resolved theme based on system preference or user choice
-  const getResolvedTheme = (theme: Theme): 'light' | 'dark' => {
-    if (theme === 'system') {
+  const getResolvedTheme = (themeValue: Theme): 'light' | 'dark' => {
+    if (themeValue === 'system') {
       if (typeof window !== 'undefined') {
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       }
       return 'light';
     }
-    return theme;
+    return themeValue;
   };
 
   // Apply theme to document
@@ -66,7 +68,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   // Listen for system theme changes when in 'system' mode
   useEffect(() => {
-    if (theme !== 'system') return;
+    if (!mounted || theme !== 'system') return;
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {
@@ -75,16 +77,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [theme]);
-
-  // Prevent flash of wrong theme
-  if (!mounted) {
-    return (
-      <div style={{ visibility: 'hidden' }}>
-        {children}
-      </div>
-    );
-  }
+  }, [theme, mounted]);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme, resolvedTheme }}>
