@@ -1,80 +1,123 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function LandingPage() {
   return (
-    <div className="bg-white">
+    <div style={{ backgroundColor: 'var(--color-background)' }}>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-orange-50 via-white to-red-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+      <section className="relative overflow-hidden">
+        {/* Decorative blobs */}
+        <div
+          className="absolute top-0 right-0 w-[500px] h-[500px] blob blob-animate opacity-20"
+          style={{ backgroundColor: 'var(--color-primary)', filter: 'blur(80px)' }}
+        />
+        <div
+          className="absolute bottom-0 left-0 w-[400px] h-[400px] blob blob-animate opacity-15"
+          style={{ backgroundColor: 'var(--color-secondary)', filter: 'blur(60px)', animationDelay: '2s' }}
+        />
+        <div
+          className="absolute top-1/2 left-1/3 w-[300px] h-[300px] blob blob-animate opacity-20"
+          style={{ backgroundColor: 'var(--color-accent)', filter: 'blur(50px)', animationDelay: '4s' }}
+        />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
             <div className="text-center lg:text-left">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+              <div
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6 animate-bounce-in"
+                style={{ backgroundColor: 'rgba(123, 74, 226, 0.1)', color: 'var(--color-secondary)' }}
+              >
+                <span>🌟</span>
+                <span>Trusted by 5K+ families worldwide</span>
+              </div>
+
+              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight animate-bounce-in delay-100" style={{ color: 'var(--color-text)' }}>
                 Preserve Your Family's
-                <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                  {" "}Culinary Legacy
+                <span className="block text-gradient">
+                  Culinary Legacy
                 </span>
               </h1>
-              <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
+              <p className="text-xl md:text-2xl mb-8 leading-relaxed animate-fade-up delay-200" style={{ color: 'var(--color-text-soft)' }}>
                 The stories behind your family recipes are as important as the recipes themselves.
                 Share, preserve, and celebrate the flavors that bring your family together.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-up delay-300">
                 <Link
                   href="/auth"
-                  className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl transition-all duration-200 hover:scale-105 text-center"
+                  className="btn-squish gradient-primary text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-playful-lg text-center"
                 >
-                  Start Your Collection
+                  Start Your Collection ✨
                 </Link>
                 <Link
                   href="/recipes"
-                  className="bg-white text-gray-700 px-8 py-4 rounded-full font-semibold text-lg border-2 border-gray-300 hover:border-orange-500 hover:text-orange-500 transition-all duration-200 text-center"
+                  className="btn-squish px-8 py-4 rounded-2xl font-semibold text-lg border-2 text-center"
+                  style={{ backgroundColor: 'var(--color-surface)', borderColor: 'var(--color-border)', color: 'var(--color-text)' }}
                 >
                   Explore Recipes
                 </Link>
               </div>
 
               {/* Social Proof */}
-              <div className="mt-12 flex items-center justify-center lg:justify-start space-x-8">
+              <div className="mt-12 flex items-center justify-center lg:justify-start space-x-8 animate-fade-up delay-400">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-gray-900">10K+</div>
-                  <div className="text-sm text-gray-600">Recipes Shared</div>
+                  <div className="font-display text-3xl font-bold text-gradient">10K+</div>
+                  <div className="text-sm" style={{ color: 'var(--color-text-soft)' }}>Recipes Shared</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-gray-900">5K+</div>
-                  <div className="text-sm text-gray-600">Happy Families</div>
+                  <div className="font-display text-3xl font-bold text-gradient">5K+</div>
+                  <div className="text-sm" style={{ color: 'var(--color-text-soft)' }}>Happy Families</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-gray-900">50+</div>
-                  <div className="text-sm text-gray-600">Countries</div>
+                  <div className="font-display text-3xl font-bold text-gradient">50+</div>
+                  <div className="text-sm" style={{ color: 'var(--color-text-soft)' }}>Countries</div>
                 </div>
               </div>
             </div>
 
             {/* Right Content - Hero Image */}
-            <div className="relative">
-              <div className="relative h-[400px] lg:h-[600px] rounded-2xl overflow-hidden shadow-2xl">
-                {/* Using Unsplash for demo - replace with actual images */}
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-200 to-red-300">
-                  {/* Placeholder for food image */}
+            <div className="relative animate-fade-up delay-300">
+              <div className="relative h-[400px] lg:h-[600px] rounded-3xl overflow-hidden shadow-playful-lg" style={{ backgroundColor: 'var(--color-surface)' }}>
+                <div
+                  className="absolute inset-0"
+                  style={{ background: 'linear-gradient(135deg, var(--color-primary)30, var(--color-secondary)20)' }}
+                >
                   <div className="w-full h-full flex items-center justify-center">
-                    <svg className="w-32 h-32 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
+                    <span className="text-[120px] opacity-30">🍳</span>
                   </div>
                 </div>
-                {/* Floating cards */}
-                <div className="absolute top-4 right-4 bg-white rounded-lg shadow-lg p-4 backdrop-blur-sm bg-white/90">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                      </svg>
+                {/* Floating card */}
+                <div
+                  className="absolute top-4 right-4 rounded-2xl shadow-playful p-4 animate-float"
+                  style={{ backgroundColor: 'var(--color-surface)' }}
+                >
+                  <div className="flex items-center space-x-3">
+                    <div
+                      className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
+                      style={{ backgroundColor: 'rgba(255, 107, 53, 0.15)' }}
+                    >
+                      ❤️
                     </div>
                     <div>
-                      <div className="text-sm font-semibold text-gray-900">2,341 loves</div>
-                      <div className="text-xs text-gray-500">this week</div>
+                      <div className="font-bold" style={{ color: 'var(--color-text)' }}>2,341 loves</div>
+                      <div className="text-xs" style={{ color: 'var(--color-text-muted)' }}>this week</div>
+                    </div>
+                  </div>
+                </div>
+                {/* Another floating card */}
+                <div
+                  className="absolute bottom-4 left-4 rounded-2xl shadow-playful p-4 animate-float"
+                  style={{ backgroundColor: 'var(--color-surface)', animationDelay: '1.5s' }}
+                >
+                  <div className="flex items-center space-x-3">
+                    <div
+                      className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
+                      style={{ backgroundColor: 'rgba(123, 74, 226, 0.15)' }}
+                    >
+                      👨‍👩‍👧‍👦
+                    </div>
+                    <div>
+                      <div className="font-bold" style={{ color: 'var(--color-text)' }}>127 families</div>
+                      <div className="text-xs" style={{ color: 'var(--color-text-muted)' }}>joined today</div>
                     </div>
                   </div>
                 </div>
@@ -82,72 +125,72 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-
-        {/* Decorative elements */}
-        <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-orange-200 rounded-full opacity-20 blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-red-200 rounded-full opacity-20 blur-3xl"></div>
       </section>
 
       {/* Feature Images Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20" style={{ backgroundColor: 'var(--color-surface)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              More Than Just Recipes
+            <div
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-4"
+              style={{ backgroundColor: 'rgba(0, 212, 170, 0.1)', color: 'var(--color-accent)' }}
+            >
+              <span>✨</span>
+              <span>Why families love us</span>
+            </div>
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
+              More Than Just <span className="text-gradient">Recipes</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl max-w-3xl mx-auto" style={{ color: 'var(--color-text-soft)' }}>
               Every dish tells a story. Capture the memories, traditions, and love that make your family recipes truly special.
             </p>
           </div>
 
-          {/* Feature Grid with Images */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {/* Feature Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Feature 1 */}
-            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
-              <div className="h-64 bg-gradient-to-br from-orange-300 to-red-300 relative">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <svg className="w-24 h-24 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                </div>
+            <div className="card-playful rounded-3xl overflow-hidden" style={{ backgroundColor: 'var(--color-background)' }}>
+              <div
+                className="h-48 relative flex items-center justify-center"
+                style={{ background: 'linear-gradient(135deg, var(--color-primary)30, var(--color-warm)20)' }}
+              >
+                <span className="text-7xl">📖</span>
               </div>
-              <div className="p-6 bg-white">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Share Your Stories</h3>
-                <p className="text-gray-600">
+              <div className="p-6">
+                <h3 className="font-display text-xl font-bold mb-2" style={{ color: 'var(--color-text)' }}>Share Your Stories</h3>
+                <p style={{ color: 'var(--color-text-soft)' }}>
                   Add personal anecdotes and family history to each recipe. Keep traditions alive for generations.
                 </p>
               </div>
             </div>
 
             {/* Feature 2 */}
-            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
-              <div className="h-64 bg-gradient-to-br from-yellow-300 to-orange-300 relative">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <svg className="w-24 h-24 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                </div>
+            <div className="card-playful rounded-3xl overflow-hidden" style={{ backgroundColor: 'var(--color-background)' }}>
+              <div
+                className="h-48 relative flex items-center justify-center"
+                style={{ background: 'linear-gradient(135deg, var(--color-secondary)30, var(--color-primary)20)' }}
+              >
+                <span className="text-7xl">👨‍👩‍👧‍👦</span>
               </div>
-              <div className="p-6 bg-white">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Connect Families</h3>
-                <p className="text-gray-600">
+              <div className="p-6">
+                <h3 className="font-display text-xl font-bold mb-2" style={{ color: 'var(--color-text)' }}>Connect Families</h3>
+                <p style={{ color: 'var(--color-text-soft)' }}>
                   Invite relatives to contribute their versions and keep your culinary heritage thriving.
                 </p>
               </div>
             </div>
 
             {/* Feature 3 */}
-            <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
-              <div className="h-64 bg-gradient-to-br from-red-300 to-pink-300 relative">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <svg className="w-24 h-24 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </div>
+            <div className="card-playful rounded-3xl overflow-hidden" style={{ backgroundColor: 'var(--color-background)' }}>
+              <div
+                className="h-48 relative flex items-center justify-center"
+                style={{ background: 'linear-gradient(135deg, var(--color-accent)30, var(--color-secondary)20)' }}
+              >
+                <span className="text-7xl">🔍</span>
               </div>
-              <div className="p-6 bg-white">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Discover New Favorites</h3>
-                <p className="text-gray-600">
+              <div className="p-6">
+                <h3 className="font-display text-xl font-bold mb-2" style={{ color: 'var(--color-text)' }}>Discover New Favorites</h3>
+                <p style={{ color: 'var(--color-text-soft)' }}>
                   Explore recipes from families worldwide and find inspiration for your next family dinner.
                 </p>
               </div>
@@ -157,13 +200,19 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-gradient-to-br from-orange-50 to-red-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 relative overflow-hidden" style={{ backgroundColor: 'var(--color-background)' }}>
+        {/* Decorative blob */}
+        <div
+          className="absolute top-1/2 -right-40 w-80 h-80 blob opacity-15"
+          style={{ backgroundColor: 'var(--color-warm)', filter: 'blur(60px)' }}
+        />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Simple. Beautiful. Meaningful.
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
+              Simple. Beautiful. <span className="text-gradient">Meaningful.</span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl" style={{ color: 'var(--color-text-soft)' }}>
               Start preserving your family recipes in just three easy steps
             </p>
           </div>
@@ -171,33 +220,39 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {/* Step 1 */}
             <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <span className="text-3xl font-bold text-white">1</span>
+              <div
+                className="w-20 h-20 gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-playful text-4xl"
+              >
+                1️⃣
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Create Your Account</h3>
-              <p className="text-gray-600 text-lg">
+              <h3 className="font-display text-2xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>Create Your Account</h3>
+              <p className="text-lg" style={{ color: 'var(--color-text-soft)' }}>
                 Sign up in seconds and start your family recipe collection. It's completely free to get started.
               </p>
             </div>
 
             {/* Step 2 */}
             <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <span className="text-3xl font-bold text-white">2</span>
+              <div
+                className="w-20 h-20 gradient-secondary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-playful text-4xl"
+              >
+                2️⃣
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Share Your Recipes</h3>
-              <p className="text-gray-600 text-lg">
+              <h3 className="font-display text-2xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>Share Your Recipes</h3>
+              <p className="text-lg" style={{ color: 'var(--color-text-soft)' }}>
                 Add recipes with ingredients, instructions, and the special stories that make them unique.
               </p>
             </div>
 
             {/* Step 3 */}
             <div className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <span className="text-3xl font-bold text-white">3</span>
+              <div
+                className="w-20 h-20 gradient-accent rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-playful text-4xl"
+              >
+                3️⃣
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Connect & Preserve</h3>
-              <p className="text-gray-600 text-lg">
+              <h3 className="font-display text-2xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>Connect & Preserve</h3>
+              <p className="text-lg" style={{ color: 'var(--color-text-soft)' }}>
                 Invite family members and build a lasting digital cookbook for future generations.
               </p>
             </div>
@@ -206,83 +261,86 @@ export default function LandingPage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-white">
+      <section className="py-20" style={{ backgroundColor: 'var(--color-surface)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Loved by Families Everywhere
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
+              Loved by Families <span className="text-gradient">Everywhere</span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl" style={{ color: 'var(--color-text-soft)' }}>
               See what families are saying about preserving their culinary heritage
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Testimonial 1 */}
-            <div className="bg-gradient-to-br from-orange-50 to-white p-8 rounded-2xl shadow-lg">
+            <div className="card-playful rounded-3xl p-8" style={{ backgroundColor: 'var(--color-background)' }}>
               <div className="flex items-center mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                  </svg>
+                  <span key={i} className="text-xl">⭐</span>
                 ))}
               </div>
-              <p className="text-gray-700 mb-6 italic">
+              <p className="mb-6 italic" style={{ color: 'var(--color-text-soft)' }}>
                 "Finally, all of my grandmother's recipes are in one place! I can now share them with my kids and know they'll never be lost."
               </p>
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mr-3 text-xl font-bold text-white"
+                  style={{ backgroundColor: 'var(--color-primary)' }}
+                >
                   SM
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-900">Sarah Martinez</div>
-                  <div className="text-sm text-gray-600">Austin, TX</div>
+                  <div className="font-semibold" style={{ color: 'var(--color-text)' }}>Sarah Martinez</div>
+                  <div className="text-sm" style={{ color: 'var(--color-text-muted)' }}>Austin, TX</div>
                 </div>
               </div>
             </div>
 
             {/* Testimonial 2 */}
-            <div className="bg-gradient-to-br from-red-50 to-white p-8 rounded-2xl shadow-lg">
+            <div className="card-playful rounded-3xl p-8" style={{ backgroundColor: 'var(--color-background)' }}>
               <div className="flex items-center mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                  </svg>
+                  <span key={i} className="text-xl">⭐</span>
                 ))}
               </div>
-              <p className="text-gray-700 mb-6 italic">
+              <p className="mb-6 italic" style={{ color: 'var(--color-text-soft)' }}>
                 "The story feature is beautiful. Each recipe feels like a chapter in our family's history. My kids love reading about their great-grandparents."
               </p>
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mr-3 text-xl font-bold text-white"
+                  style={{ backgroundColor: 'var(--color-secondary)' }}
+                >
                   JC
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-900">James Chen</div>
-                  <div className="text-sm text-gray-600">San Francisco, CA</div>
+                  <div className="font-semibold" style={{ color: 'var(--color-text)' }}>James Chen</div>
+                  <div className="text-sm" style={{ color: 'var(--color-text-muted)' }}>San Francisco, CA</div>
                 </div>
               </div>
             </div>
 
             {/* Testimonial 3 */}
-            <div className="bg-gradient-to-br from-yellow-50 to-white p-8 rounded-2xl shadow-lg">
+            <div className="card-playful rounded-3xl p-8" style={{ backgroundColor: 'var(--color-background)' }}>
               <div className="flex items-center mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                  </svg>
+                  <span key={i} className="text-xl">⭐</span>
                 ))}
               </div>
-              <p className="text-gray-700 mb-6 italic">
+              <p className="mb-6 italic" style={{ color: 'var(--color-text-soft)' }}>
                 "This platform brought our scattered family closer together. We're all contributing recipes and the collection grows every week!"
               </p>
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white font-bold mr-3">
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mr-3 text-xl font-bold text-white"
+                  style={{ backgroundColor: 'var(--color-accent)' }}
+                >
                   RP
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-900">Rosa Patel</div>
-                  <div className="text-sm text-gray-600">Miami, FL</div>
+                  <div className="font-semibold" style={{ color: 'var(--color-text)' }}>Rosa Patel</div>
+                  <div className="text-sm" style={{ color: 'var(--color-text-muted)' }}>Miami, FL</div>
                 </div>
               </div>
             </div>
@@ -291,9 +349,13 @@ export default function LandingPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-r from-orange-500 to-red-500">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+      <section className="py-20 gradient-secondary relative overflow-hidden">
+        {/* Pattern overlay */}
+        <div className="absolute inset-0 pattern-dots opacity-20" />
+
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <div className="text-6xl mb-6">🚀</div>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-6">
             Start Preserving Your Family's Food Legacy Today
           </h2>
           <p className="text-xl text-white/90 mb-8">
@@ -302,75 +364,23 @@ export default function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/auth"
-              className="bg-white text-orange-500 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-2xl transition-all duration-200 hover:scale-105"
+              className="btn-squish px-8 py-4 rounded-2xl font-semibold text-lg shadow-lg"
+              style={{ backgroundColor: 'var(--color-surface)', color: 'var(--color-primary)' }}
             >
               Get Started Free
             </Link>
             <Link
               href="/recipes"
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-orange-500 transition-all duration-200"
+              className="btn-squish px-8 py-4 rounded-2xl font-semibold text-lg border-2 border-white text-white hover:bg-white/10 transition-colors"
             >
               Browse Recipes
             </Link>
           </div>
-          <p className="mt-6 text-white/80 text-sm">
+          <p className="mt-6 text-white/70 text-sm">
             No credit card required • Free forever • Cancel anytime
           </p>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-3 mb-4">
-                <Image
-                  src="/logo.svg"
-                  alt="Family Recipes Logo"
-                  width={40}
-                  height={40}
-                />
-                <span className="font-bold text-xl">Family Recipes</span>
-              </div>
-              <p className="text-gray-400 text-sm">
-                Preserving culinary traditions, one recipe at a time.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-4">Product</h3>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-4">Company</h3>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-4">Legal</h3>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Security</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2026 Family Recipes. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -30,7 +30,7 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="bg-white shadow-md border-b border-gray-200">
+    <nav className="bg-white shadow-md border-b border-gray-200" aria-label="Main navigation">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -55,6 +55,7 @@ export default function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                   isActive(item.href)
                     ? 'bg-orange-500 text-white'
@@ -112,6 +113,7 @@ export default function Navigation() {
                   key={item.href}
                   href={item.href}
                   onClick={closeMobileMenu}
+                  aria-current={isActive(item.href) ? 'page' : undefined}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
                     isActive(item.href)
                       ? 'bg-orange-500 text-white'

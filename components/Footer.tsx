@@ -73,14 +73,14 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-[var(--bg-tertiary)] text-[var(--text-secondary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
           <div className="lg:col-span-1">
-            <h3 className="text-white text-lg font-bold mb-4">Family Recipes</h3>
-            <p className="text-sm text-gray-400 mb-4">
+            <h3 className="text-[var(--text-primary)] text-lg font-bold mb-4">Family Recipes</h3>
+            <p className="text-sm text-[var(--text-muted)] mb-4">
               Preserving and sharing your family's culinary heritage, one recipe at a time.
             </p>
             {/* Social Icons */}
@@ -91,7 +91,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors duration-200"
+                  className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors duration-200"
                   aria-label={social.name}
                 >
                   {social.icon}
@@ -102,7 +102,7 @@ export default function Footer() {
 
           {/* Company Links */}
           <div>
-            <h4 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">
+            <h4 className="text-[var(--text-primary)] text-sm font-semibold mb-4 uppercase tracking-wider">
               Company
             </h4>
             <ul className="space-y-2">
@@ -110,7 +110,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm hover:text-white transition-colors duration-200"
+                    className="text-sm hover:text-[var(--text-primary)] transition-colors duration-200"
                   >
                     {link.label}
                   </Link>
@@ -121,7 +121,7 @@ export default function Footer() {
 
           {/* Resources Links */}
           <div>
-            <h4 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">
+            <h4 className="text-[var(--text-primary)] text-sm font-semibold mb-4 uppercase tracking-wider">
               Resources
             </h4>
             <ul className="space-y-2">
@@ -129,7 +129,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm hover:text-white transition-colors duration-200"
+                    className="text-sm hover:text-[var(--text-primary)] transition-colors duration-200"
                   >
                     {link.label}
                   </Link>
@@ -140,7 +140,7 @@ export default function Footer() {
 
           {/* Legal Links */}
           <div>
-            <h4 className="text-white text-sm font-semibold mb-4 uppercase tracking-wider">
+            <h4 className="text-[var(--text-primary)] text-sm font-semibold mb-4 uppercase tracking-wider">
               Legal
             </h4>
             <ul className="space-y-2">
@@ -148,7 +148,7 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm hover:text-white transition-colors duration-200"
+                    className="text-sm hover:text-[var(--text-primary)] transition-colors duration-200"
                   >
                     {link.label}
                   </Link>
@@ -159,21 +159,21 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 pt-8">
+        <div className="border-t border-[var(--border-secondary)] pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-[var(--text-muted)]">
               © {currentYear} Family Recipes. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link
                 href="/sitemap"
-                className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
+                className="text-sm text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors duration-200"
               >
                 Sitemap
               </Link>
               <Link
                 href="/accessibility"
-                className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
+                className="text-sm text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors duration-200"
               >
                 Accessibility
               </Link>

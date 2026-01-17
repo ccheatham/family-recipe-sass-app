@@ -1,26 +1,179 @@
 @import "tailwindcss";
 
 :root {
+  /* Base colors */
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Primary brand colors */
+  --primary: #f97316;
+  --primary-hover: #ea580c;
+  --secondary: #ef4444;
+  --secondary-hover: #dc2626;
+
+  /* Text colors */
+  --text-primary: #171717;
+  --text-secondary: #4b5563;
+  --text-tertiary: #6b7280;
+  --text-muted: #9ca3af;
+  --text-placeholder: #9ca3af;
+
+  /* Background colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #f3f4f6;
+  --bg-accent-orange: #fff7ed;
+  --bg-accent-red: #fef2f2;
+  --bg-accent-yellow: #fefce8;
+  --bg-accent-green: #f0fdf4;
+  --bg-orange-light: #fed7aa;
+  --bg-red-light: #fecaca;
+  --bg-yellow-light: #fef08a;
+  --bg-green-light: #bbf7d0;
+
+  /* Border colors */
+  --border-primary: #d1d5db;
+  --border-secondary: #e5e7eb;
+  --border-tertiary: #f3f4f6;
+  --border-focus: #f97316;
+  --border-accent-yellow: #fef08a;
+
+  /* Icon background colors */
+  --icon-bg-orange: #ffedd5;
+  --icon-bg-red: #fee2e2;
+  --icon-bg-yellow: #fef3c7;
+  --icon-bg-green: #dcfce7;
+  --icon-bg-gray: #e5e7eb;
+
+  /* Icon colors */
+  --icon-orange: #f97316;
+  --icon-red: #ef4444;
+  --icon-yellow: #ca8a04;
+  --icon-green: #16a34a;
+  --icon-gray: #6b7280;
+
+  /* State colors */
+  --color-success: #16a34a;
+  --color-warning: #ca8a04;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Interactive states */
+  --hover-bg: #f9fafb;
+  --active-bg: #f3f4f6;
+
+  /* Gradients (as CSS gradient strings) */
+  --gradient-primary: linear-gradient(to right, #f97316, #ef4444);
+  --gradient-bg: linear-gradient(135deg, #fff7ed 0%, #ffffff 50%, #fef2f2 100%);
+  --gradient-image: linear-gradient(135deg, #fed7aa, #fecaca);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-text: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-muted: var(--text-muted);
+  --color-border: var(--border-primary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
+    /* Base colors */
     --background: #0a0a0a;
     --foreground: #ededed;
+
+    /* Primary brand colors remain the same for consistency */
+    --primary: #f97316;
+    --primary-hover: #ea580c;
+    --secondary: #ef4444;
+    --secondary-hover: #dc2626;
+
+    /* Text colors */
+    --text-primary: #ededed;
+    --text-secondary: #d1d5db;
+    --text-tertiary: #9ca3af;
+    --text-muted: #6b7280;
+    --text-placeholder: #6b7280;
+
+    /* Background colors */
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #262626;
+    --bg-accent-orange: #2c1810;
+    --bg-accent-red: #2c1010;
+    --bg-accent-yellow: #2c2410;
+    --bg-accent-green: #102c10;
+    --bg-orange-light: #3c2410;
+    --bg-red-light: #3c1010;
+    --bg-yellow-light: #3c3410;
+    --bg-green-light: #103c10;
+
+    /* Border colors */
+    --border-primary: #374151;
+    --border-secondary: #262626;
+    --border-tertiary: #1a1a1a;
+    --border-focus: #f97316;
+    --border-accent-yellow: #3c3410;
+
+    /* Icon background colors */
+    --icon-bg-orange: #2c1810;
+    --icon-bg-red: #2c1010;
+    --icon-bg-yellow: #2c2410;
+    --icon-bg-green: #102c10;
+    --icon-bg-gray: #262626;
+
+    /* Interactive states */
+    --hover-bg: #1a1a1a;
+    --active-bg: #262626;
+
+    /* Gradients */
+    --gradient-bg: linear-gradient(135deg, #2c1810 0%, #0a0a0a 50%, #2c1010 100%);
+    --gradient-image: linear-gradient(135deg, #3c2410, #3c1010);
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-dm-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+/* Typography System */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-bricolage), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+}
+
+p {
+  line-height: 1.75;
+}
+
+/* Warm text shadow for better readability on light backgrounds */
+.text-shadow-warm {
+  text-shadow: 0 1px 2px rgba(249, 115, 22, 0.1);
 }
